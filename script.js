@@ -106,9 +106,7 @@ class Individual {
             this.element.parentElement.removeChild(this.element);
         }
         this.element = document.createElement('DIV')
-        console.log('left-right')
         if ( Math.random() < 0.5 ){
-            console.log('left')
             this.element.className = "left";
         }
             this.element.innerHTML += `<div></div>`;
@@ -124,16 +122,10 @@ class Individual {
 //         this.element = parentElement.children[parentElement.children.length-1];
     }
     switchOn(){
-        console.log(this.element)
-        console.log(this.element.classList)
-        this.element.classList.add('on')
-        console.log(this.element.classList) 
+        this.element.classList.add('on') 
     }
     switchOff(){
-        console.log(this.element)
-        console.log(this.element.classList)
         this.element.classList.remove('on')
-        console.log(this.element.classList)
     }
 }
 class EnvEvent {
@@ -159,25 +151,20 @@ class EnvEvent {
     
     aptitude(ind){
         var aptitude = 0;
-        console.debug(ind.chars);
         for ( var i = 0; i < this.idealChars.length; i++ ) {    //for ideal combination of characters
             var tempAptitude = 0
             var idealCharsCount = 0;
-            console.debug('aptitude for '+i+'th ideail:');
-            console.debug(this.idealChars[i])
             for ( var j = 0; j < CHARS_COUNT; j++ ) {
                 if ( this.idealChars[i][j] != undefined ){
                     tempAptitude += (2 - Math.abs(ind.chars[j] - this.idealChars[i][j][0])) * this.idealChars[i][j][1];
                     idealCharsCount++;
                 }
-                console.debug('  temp aptitude: '+tempAptitude)
             }
             tempAptitude /=  2
             if ( tempAptitude > aptitude ) {
                 aptitude = tempAptitude;
             }
         }   
-        console.debug('aptitude: '+aptitude)
         return aptitude;
     }
     
@@ -238,7 +225,7 @@ class Biome {
             this.individualsElement.innerHTML = '';
             for ( var i = 0; i < this.population.length && iterations < 256; i++){
                 iterations++
-//                 console.log(i)
+//                 //console.log(i)
                 this.population[i].display(
                     this.individualsElement,
                     `game.toggleIndividual(${i}, '${this.name}');`
@@ -250,9 +237,9 @@ class Biome {
                 var height = verticalRandom*.1666666666666666666666+20;
                 var top = verticalRandom*.3;
                 this.population[i].element.style.top = `${top}vh`;
-//                 console.log(top * -1000)
+//                 //console.log(top * -1000)
                 this.population[i].element.style.zIndex = Math.round(top * 10);
-//                 console.log( this.population[i].element.style.zIndex)
+//                 //console.log( this.population[i].element.style.zIndex)
                 this.population[i].element.style.width = `${height / 2.6}vh`;
                 this.population[i].element.style.height = `${height}vh`;
                 var minDistance = 100;
@@ -275,7 +262,6 @@ class Biome {
                 done = true
             }
         }
-        console.log(tries)
     }
     chooseLocalEvent() {
         var randomChoice = Math.random() * this.eventsProbability[this.eventsProbability.length - 1];
@@ -315,20 +301,20 @@ class Biome {
     }
     
     breedingCount() {
-        return Math.max(Math.round(this.population.length/2),2);
+        return Math.max(Math.round(this.survivorsCount()/2),2);
     }
     reproduction() {
         var newPopulation = [];
         for ( var j = 0; j < 3; j++ ) {
             for ( var i = 0; i < this.breedingInds.length ; i++) {
                 var mateIndex = Math.floor(Math.random() * (this.breedingInds.length - 1));
-                console.log(mateIndex)
+                //console.log(mateIndex)
                 if ( mateIndex >= i ) {
                     //if mate has the same index one is added, the individual can't mate with itself
                     mateIndex++;
                 }
                 var newInd = this.breedingInds[i].mate(this.breedingInds[mateIndex])
-                console.log(`Matting {${this.breedingInds[i]}} with {${this.breedingInds[mateIndex]}} = {${newInd}}`) 
+                //console.log(`Matting {${this.breedingInds[i]}} with {${this.breedingInds[mateIndex]}} = {${newInd}}`) 
                 newPopulation.push(newInd);
             }
         }
@@ -370,9 +356,9 @@ class Biome {
 
 class Survival {
     constructor(biomePairs, globalEvents) {
-        console.log(biomePairs)
+        //console.log(biomePairs)
         var biomePair = biomePairs[Math.floor(Math.random() * biomePairs.length)]
-        console.log(biomePair)
+        //console.log(biomePair)
         if (Math.random() < .5){
             this.lBiome = biomePair[0];
             this.rBiome = biomePair[1];
@@ -382,7 +368,7 @@ class Survival {
         }
         this.lBiome.generateElements(document.getElementById('left-biome'));
         this.rBiome.generateElements(document.getElementById('right-biome'));
-        console.log(this.lBiome,this.rBiome)
+        //console.log(this.lBiome,this.rBiome)
         this.currentPhase = -1;
         this.turnCount = 1;
         this.localEventProb = 1;
@@ -484,18 +470,18 @@ class Survival {
     }
     
     d(){
-        console.log('==== LEFT ====')
-        console.log('  Event: ' + this.lCurrentEvent.toString());
+        //console.log('==== LEFT ====')
+        //console.log('  Event: ' + this.lCurrentEvent.toString());
         for (let idealChar in this.lCurrentEvent.idealChars){
-            console.log('    ' + JSON.stringify(this.lCurrentEvent.idealChars[idealChar]))
+            //console.log('    ' + JSON.stringify(this.lCurrentEvent.idealChars[idealChar]))
         }
-        console.log(this.lBiome.toString())
-        console.log('==== RIGHT ====')
-        console.log('  Event: ' + this.rCurrentEvent.toString())
+        //console.log(this.lBiome.toString())
+        //console.log('==== RIGHT ====')
+        //console.log('  Event: ' + this.rCurrentEvent.toString())
         for (let idealChar in this.rCurrentEvent.idealChars){
-            console.log('    ' + JSON.stringify(this.rCurrentEvent.idealChars[idealChar]))
+            //console.log('    ' + JSON.stringify(this.rCurrentEvent.idealChars[idealChar]))
         }
-        console.log(this.rBiome.toString())
+        //console.log(this.rBiome.toString())
         
     }
     
@@ -513,6 +499,10 @@ class Survival {
         this.lBiome.displayIndividuals();
         this.rBiome.displayIndividuals();
         this.turnChooseEventPhase();
+        setTimeout(function(){
+            document.getElementById('loading').className = 'hidden';
+        }, 200)
+//         document.getElementById('loading').className = 'hidden';
     }
     
 }
@@ -662,7 +652,8 @@ function main(){
 
     game = new Survival([[desert,tundra],[jungle,mountain],[savanna,cave]],[meteorite,glaciation])
     game.start();
-    displayBiomeIndividuals = game.displayBiomeIndividuals
+    console.log("START")
+//     displayBiomeIndividuals = game.displayBiomeIndividuals
 }
 
 
