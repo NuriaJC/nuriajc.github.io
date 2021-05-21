@@ -423,14 +423,14 @@ class Survival {
             
 //             return false;
         }
-        this.userButtonElement.innerHTML = 'Breed';
+        this.userButtonElement.innerHTML = 'Reproducir';
         this.userButtonElement.className = 'disabled';
     }
     turnBreedingPhase() {
         this.turnCountElement.classList.remove('animate');
         this.currentPhase = 1;
         document.body.className='phase-1';
-        this.userButtonElement.innerHTML = 'Go to event';
+        this.userButtonElement.innerHTML = 'Evento';
         this.userButtonElement.className = '';
         this.lBiome.reproduction();
         this.rBiome.reproduction();
