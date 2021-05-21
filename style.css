@@ -1,7 +1,94 @@
 body{
     height: 100vh;
     overflow: hidden;
+    margin:0;
+    padding:0;
 }
+
+img.bg{
+    height: 100vh;
+    animation: bg_slide 24s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.main h1{
+    position: fixed;
+    top: 32px;
+}
+
+.button-container{
+    position: fixed;
+    bottom: 32px;
+}
+
+button.main{
+    position: relative;
+    clear:both;
+    float:left;
+    margin-top:32px;
+/*     bottom: 32px; */
+}
+
+#popup,
+#popup-death{
+    position:fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+}
+
+
+#popup-death{
+    background-color: rgba(200, 55, 55, 0.5);
+}
+
+#popup-death p{
+    text-align: center;
+}
+
+#popup-death a{
+    text-decoration:none;
+}
+#popup-death button{
+display:block;
+float:unset;
+    position:unset;
+    margin: 32px auto;
+}
+#popup-death button:active{
+margin-top: 40px;
+margin-bottom: -8px;
+}
+
+
+#popup{
+    animation:apear 0.5;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+#popup div,
+#popup-death div{
+    min-width: 512px;
+    width: 50%;
+    margin: 5% auto;
+    background-color: rgba(255,255,255,.85);
+    padding:32px;
+    border-radius: 32px;
+}
+
+@keyframes bg_slide {
+    0% {
+        transform: translatex(0);
+    }
+    100%{
+        transform: translatex(-50%);
+    }
+}
+
 /*
 #left-biome{
     background-image: url('img/desert_bg.jpg');
@@ -17,8 +104,8 @@ body{
     background-position-x: center;
 }
 
-.event-title h1,
-.event-title h2{
+h1,
+h2{
     color: #fff;
     font-family:  sans-serif;
     width: 90%;
@@ -26,11 +113,11 @@ body{
     text-align: center;
 }
 
-.event-title h1{
+h1{
     font-size: 48px;
     text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
 }
-.event-title h2{
+h2{
     font-size: 24px; 
     text-shadow: 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
 }
@@ -78,9 +165,7 @@ body{
     }
 }
 
-#user-button {
-    position: fixed;
-    bottom:5vh;
+button {
     left:40vw;
     z-index:0;
     width:20vw;
@@ -90,6 +175,43 @@ body{
     background-color: #5aa02c;
     box-shadow: 0 8px 0 #447821, 0 0 8px rgba(0,0,0,.5), 0 8px 8px rgba(0,0,0,.5);
     color:#fff;
+    cursor: pointer;
+}
+
+button#exit{
+    position: fixed;
+    left:unset;
+    bottom:unset;
+    height:4vw;
+    width:4vw;
+    right:2vw;
+    top:2vw;
+    border-radius:2vw;
+    padding:0;
+    background-color: #c83737;
+    box-shadow: 0 8px 0 #a02c2c, 0 0 8px rgba(0,0,0,.5), 0 8px 8px rgba(0,0,0,.5);
+}
+
+button#exit img{
+    margin:0.5vw;
+    width: 3vw;
+}
+
+button#exit:hover {
+    background-color: #d35f5f;
+    box-shadow: 0 8px 0 #c83737, 0 0 8px rgba(0,0,0,.5), 0 8px 8px rgba(0,0,0,.5);
+}
+
+button#exit:active {
+    margin-top: 8px;
+    background-color: #d35f5f;
+    box-shadow: 0 0 8px rgba(0,0,0,.75);
+}
+
+
+#user-button {
+    position: fixed;
+    bottom:5vh;
 }
 
 .hidden {
@@ -103,14 +225,16 @@ body{
     box-shadow: 0 8px 0 #222, 0 0 8px rgba(0,0,0,.5), 0 8px 8px rgba(0,0,0,.5);
     color:#ccc;
     margin-bottom: 0px;
+    cursor: not-allowed;
 }
 
-#user-button:hover {
+button:hover {
     background-color: #71c837;
     box-shadow: 0 8px 0 #5aa02c, 0 0 8px rgba(0,0,0,.5), 0 8px 8px rgba(0,0,0,.5);
 }
 
-#user-button:active {
+button:active {
+    margin-top: 40px;
     margin-bottom: -8px;
     background-color: #71c837;
     box-shadow: 0 0 8px rgba(0,0,0,.75);
@@ -318,7 +442,7 @@ body.breeded-phase .individuals > div > img {
 
 .individuals > div{
     width: 100px;
-    height: 240px; 
+    height: 260px; 
 }
 
 .individuals > div > div{
@@ -349,129 +473,132 @@ body.breeded-phase .individuals > div > img {
 
 .individuals > div > div:nth-child(1){
     background-image: url(img/individual/base.svg);
-    top: 6.994166666666667%;
-    height: 62.70166666666667%;
+    top: 6.20884615%;
+    height: 57.87846154%;
     width: 81.608%;
 }
 
 .individuals > div > div.char-1:nth-child(2){
     background-image: url(img/individual/0_1.svg);
-    top: 1.707916%;
+    top: 1.576537846%;
     left:49.310%;
-    height: 70.004583%;
+    height: 64.6203846%;
     width: 39.129%;
 }
 .individuals > div > div.char-2:nth-child(2){
     background-image: url(img/individual/0_2.svg);
     left:26.355%;
-    height: 75.30875%;
-    width: 74.748%;
+    height: 69.515769%;
+    width: 74.747%;
 }
 
 .individuals > div > div.char-0:nth-child(3){
     background-image: url(img/individual/1_0.svg);
-    top: 68.94375%;
+    top: 63.64038462%;
     left: 12.870%;
-    height: 14.315416%;
+    height: 13.21423015%;
     width: 68.829%;
 }
 .individuals > div > div.char-1:nth-child(3){
     background-image: url(img/individual/1_1.svg);
-    top: 68.94375%;
-    left: 12.870%;
-    height: 22.64875%;
+    top: 63.57192307%;
+    left: 12.841%;
+    height: 20.906538%;
     width: 68.829%;
 }
 .individuals > div > div.char-2:nth-child(3){
     background-image: url(img/individual/1_2.svg);
-    top: 69.1375%;
-    left: 0%;
-    height: 42.06625%;
-    width: 100.000%;
+    top: 63.5719230%;
+    left: 12.841%;
+    height: 36.3419230%;
+    width: 68.829%;
 }
 
 .individuals > div > div.char-1:nth-child(4){
     background-image: url(img/individual/2_1.svg);
-    top: 34.482916%;
+    top: 31.830384%;
     left: 20.832%;
-    height: 37.77625%;
-    width: 38.497%;
+    height: 34.569230%;
+    width: 39.020%;
 }
 .individuals > div > div.char-2:nth-child(4){
     background-image: url(img/individual/2_2.svg);
-    top: 30.675416%;
-    left:10.433%;
-    height: 40.1075%;
+    top: 27.505384%;
+    left:9.566%;
+    height: 37.02230769%;
     width: 33.635%;
 }
 
 .individuals > div > div.char-1:nth-child(5){
     background-image: url(img/individual/3_1.svg);
-    top: 33.4625%;
+    top: 30.88846154%;
     left: 61.025%;
-    height: 16.145833%;
+    height: 14.903846%;
     width: 15.262%;
 }
 .individuals > div > div.char-2:nth-child(5){
     background-image: url(img/individual/3_2.svg);
-    top: 34.370416%;
+    top: 31.72653785%;
     left: 57.658%;
-    height: 23.947083%;
+    height: 22.10499969%;
     width: 21.602%;
 }
 
 .individuals > div > div.char-1:nth-child(6){
     background-image: url(img/individual/4_1.svg);
-    top: 60.71%;
+    top: 56.0400000%;
     left: 46.562%;
-    height: 3.162916%;
-    width: 7.375%;
+    height: 4.78733742%;
+    width: 7.374%;
 }
 .individuals > div > div.char-2:nth-child(6){
     background-image: url(img/individual/4_2.svg);
-    top: 59.68333%;
+    top: 55.09230462%;
     left: 43.504%;
-    height: 5.00833%;
+    height: 4.623076%;
     width: 13.743%;
 }
 
 .individuals > div > div.char-0:nth-child(7){
     background-image: url(img/individual/5_0.svg);
-    top: 8.619583%;
+    top: 7.833461%;
     left: 12.522%;
-    height: 6.565%;
-    width: 25.206%;
+    height: 10.8907692%;
+    width: 79.627%;
 }
 .individuals > div > div.char-1:nth-child(7){
     background-image: url(img/individual/5_1.svg);
-    top: 8.619583%;
+    top: 7.95653846%;
     left: 12.522%;
-    height: 6.75583%;
-    width: 25.613%;
+    height: 9.0853846%;
+    width: 73.770%;
 }
 .individuals > div > div.char-2:nth-child(7){
     background-image: url(img/individual/5_2.svg);
-    top: 7.49416%;
+    top: 6.917686154%;
     left: 12.522%;
-    height: 9.177916%;
+    height: 8.471922462%;
     width: 28.900%;
 }
 
 .individuals > div > div.char-1:nth-child(8){
     background-image: url(img/individual/6_1.svg);
-    top: 24.20916%;
+    top: 22.34691692%;
     left: 21.115%;
-    height: 2.81875%;
+    height: 2.6739644%;
     width: 8.673%;
 }
 .individuals > div > div.char-2:nth-child(8){
     background-image: url(img/individual/6_2.svg);
-    top: 23.992083%;
+    top: 22.14653815%;
     left: 21.116%;
-    height: 7.53166%;
+    height: 6.95230769%;
     width: 21.769%;
 }
 
+.individuals > div.left{
+    transform: scalex(-1);
+}
 body.phase-0 .individuals > div {
     opacity: 65%;
 }
@@ -481,4 +608,33 @@ body.phase-0 .individuals > div {
 body.phase-0 .individuals > div.on {
     opacity: 100%;
     filter: drop-shadow(0px 0px 2px #fff) drop-shadow(0px 0px 2px #fff);
+}
+
+@keyframes die {
+    0% {
+        transform: scaley(1);
+    }
+    100%{
+        transform: scaley(0);
+    }
+}
+@keyframes die_left {
+    0% {
+        transform: scaley(1) scalex(-1);
+    }
+    100%{
+        transform: scaley(0) scalex(-1);
+    }
+}
+
+
+.individuals > div.dead{
+    animation: die 1s;
+    transform-origin: 50% 100%;
+    transform: scaley(0);
+}
+
+.individuals > div.dead.left{
+    transform: scaley(0) scalex(-1);
+    animation: die_left 1s;
 }

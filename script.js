@@ -65,7 +65,8 @@ class Individual {
     constructor(chars = []) {
         this.chars = chars;
         this.element = null;
-        this.mutationRate = 0.05
+        this.mutationRate = 0.05;
+        this.alive = true;
         if ( chars.length == 0 ){
             this.randomizeChars();
         }
@@ -105,6 +106,11 @@ class Individual {
             this.element.parentElement.removeChild(this.element);
         }
         this.element = document.createElement('DIV')
+        console.log('left-right')
+        if ( Math.random() < 0.5 ){
+            console.log('left')
+            this.element.className = "left";
+        }
             this.element.innerHTML += `<div></div>`;
         for ( let char in this.chars){
             this.element.innerHTML += `<div class="char-${this.chars[char]}"></div>`;
@@ -213,23 +219,32 @@ class Biome {
         this.individualsElement = this.element.children[1];
     }
     
+    updateDisplayIndividuals(){
+        for (var i = 0; i < this.population.length ; i++){
+            if (!this.population[i].alive){
+                this.population[i].element.classList.add('dead');
+                this.population[i].element.setAttribute('onclick', '')
+            }
+        }
+    }
     
     displayIndividuals(){
         var tries = 0
         var done = false
         while (!done) {
             tries++
-            var iterations = 0
-            var positions = []
+            var iterations = 0;
+            var positions = [];
             this.individualsElement.innerHTML = '';
             for ( var i = 0; i < this.population.length && iterations < 256; i++){
                 iterations++
-                console.log(i)
+//                 console.log(i)
                 this.population[i].display(
                     this.individualsElement,
                     `game.toggleIndividual(${i}, '${this.name}');`
                 )
                 var left = Math.random()*80.72222222222222+2;
+                this.population[i].element.dataset.id = i;
                 this.population[i].element.style.left = `${left}%`;
                 var verticalRandom = Math.random()*100;
                 var height = verticalRandom*.1666666666666666666666+20;
@@ -238,7 +253,7 @@ class Biome {
 //                 console.log(top * -1000)
                 this.population[i].element.style.zIndex = Math.round(top * 10);
 //                 console.log( this.population[i].element.style.zIndex)
-                this.population[i].element.style.width = `${height / 2.4}vh`;
+                this.population[i].element.style.width = `${height / 2.6}vh`;
                 this.population[i].element.style.height = `${height}vh`;
                 var minDistance = 100;
                 for ( var j = 0; j < i; j++ ){
@@ -279,9 +294,10 @@ class Biome {
                 survivors.push(individual);
             } else {
                 casualties.push(individual);
+                this.population[i].alive = false;
             }
         }
-        this.population = survivors;
+//         this.population = survivors;
         return [currentEvent, casualties];
     }
     
@@ -340,6 +356,16 @@ class Biome {
         }
         return out
     }
+    
+    survivorsCount() {
+        var count = 0;
+        for (var i = 0; i < this.population.length; i++){
+            if (this.population[i].alive){
+                count++;
+            }
+        }
+        return count
+    }
 }
 
 class Survival {
@@ -370,8 +396,6 @@ class Survival {
     }
     
     turnChooseEventPhase() {
-        document.body.classList.remove('breeding-phase');
-        document.body.classList.add('choose-phase')
         this.currentPhase = 0
         document.body.className='phase-0';
         if ( Math.random() < this.localEventProb) {
@@ -403,7 +427,6 @@ class Survival {
         this.userButtonElement.className = 'disabled';
     }
     turnBreedingPhase() {
-        
         this.turnCountElement.classList.remove('animate');
         this.currentPhase = 1;
         document.body.className='phase-1';
@@ -411,19 +434,9 @@ class Survival {
         this.userButtonElement.className = '';
         this.lBiome.reproduction();
         this.rBiome.reproduction();
-        document.body.classList.remove('choose-phase');
-        document.body.classList.add('breeding-phase');
         this.lBiome.displayIndividuals();
         this.rBiome.displayIndividuals();
     }
-    /*
-    displayBiomeIndividuals(){
-        console.log('asdf')
-        this.lBiome.displayIndividuals();
-        this.rBiome.displayIndividuals();
-        document.body.classList.remove('breeding-phase');
-        document.body.classList.add('breeded-phase');
-    }*/
     
     turnEventPhase() {
         this.lBiome.hideEvent();
@@ -431,10 +444,23 @@ class Survival {
         this.globalEventTitleElement.className = 'event-title hidden';
         this.lBiome.occurEvent(this.lCurrentEvent);
         this.rBiome.occurEvent(this.rCurrentEvent);
-        this.lBiome.displayIndividuals();
-        this.rBiome.displayIndividuals();
-        if (this.lBiome.population.length < 2 || this.rBiome.population.length < 2 ){
-            alert(`Game over\nPoints: ${this.turnCount}`);
+        this.lBiome.updateDisplayIndividuals();
+        this.rBiome.updateDisplayIndividuals();
+        if (this.lBiome.survivorsCount() < 2 || this.rBiome.survivorsCount() < 2 ){
+            document.getElementById('popup-death').className='';
+            document.getElementById('end-score').innerHTML=this.turnCount;
+            var lWins = this.lBiome.survivorsCount() > 1;
+            var rWins = this.rBiome.survivorsCount() > 1;
+            if ( lWins ){
+                document.getElementById('biome-winner').innerHTML='Ha sobrevivido la población del bioma de ' + this.lBiome.name;
+            } else if ( rWins ){
+                document.getElementById('biome-winner').innerHTML='Ha sobrevivido la población del bioma de ' + this.rBiome.name;
+            } else {
+                document.getElementById('biome-winner').innerHTML='Ninguna población ha sobrevivido';
+            }
+                
+            
+            
         } else {
             this.turnCountElement.innerHTML = ++this.turnCount;
             this.turnCountElement.classList.add('animate');
@@ -512,7 +538,7 @@ function main(){
 
     var predator = new EnvEvent(
         'Depredador', '¡Cuidado! Necesitarás unas patas muy largas y camuflaje para correr y esconderte o una gran constitución y mecanismos de defensa para atacar',
-        0.45,
+        0.5,
         [{
             [LEGS]: [2,0.4],
             [CAMO]: [2,0.6]},
@@ -626,12 +652,12 @@ function main(){
             [CONS]: [2,0.3]}]
     );
     
-    var desert = new Biome('desert', 10, [heat, predator, drought, sandStorm])
+    var desert = new Biome('desierto', 10, [heat, predator, drought, sandStorm])
     var tundra = new Biome('tundra', 10, [cold, predator, burriedFood, avalanche], document.getElementById('right-biome'))
-    var jungle = new Biome('jungle', 10, [flooding,fire,landslides,rain], document.getElementById('left-biome'))
-    var mountain = new Biome('mountain', 10, [low_food,cold,predator,drought], document.getElementById('right-biome'))
-    var savanna = new Biome('savanna', 10, [heat, drought,low_food,predator,predator,predator], document.getElementById('right-biome'))
-    var cave = new Biome('cave', 10, [collapse,cold,flooding], document.getElementById('right-biome'))
+    var jungle = new Biome('jungla', 10, [flooding,fire,landslides,rain], document.getElementById('left-biome'))
+    var mountain = new Biome('montaña', 10, [low_food,cold,predator,drought], document.getElementById('right-biome'))
+    var savanna = new Biome('savana', 10, [heat, drought,low_food,predator,predator,predator], document.getElementById('right-biome'))
+    var cave = new Biome('cueva', 10, [collapse,cold,flooding], document.getElementById('right-biome'))
 
 
     game = new Survival([[desert,tundra],[jungle,mountain],[savanna,cave]],[meteorite,glaciation])

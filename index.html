@@ -1,28 +1,28 @@
-<!doctype html>
-
-<html lang="es">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <title>Evolution, The Game</title>
-        <meta name="description" content="Evolution, The Game" />
-        <meta name="author" content="Nuria" />
-
-        <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script>
-        <script src="test.js"></script>
-        
-    </head>
-    <body onload="main();">
-<!--         <img src="https://uploads.sitepoint.com/wp-content/uploads/2014/12/1419330230lazaris-headshot-500-96x96.jpg"> -->
-        <div id="global-event-title" class="event-title hidden">
-            <h1>Example Event</h1>
-            <h2>Example Event description</h2>
-        </div>
-        <div id="left-biome" class="biome"></div>
-        <div id="right-biome" class="biome"></div>
-        <button id="user-button" onclick="game.userContinue()" class="hidden">Continue patata</button>
-        <span id="turns">1</span>
-    </body>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Evolution, The Game</title>
+    <meta name="description" content="Evolution, The Game" />
+    <meta name="author" content="Nuria" />
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="main">
+    <img class="bg" src="img/background.jpg" />
+    <h1><span style="font-size:200%;">Evolution<br /><span style="font-size:50%;">The Game</span></span></h1>
+    <div class="button-container">
+      <a href="game.html"><button class="main">Jugar</button></a>
+      <a onclick="document.getElementById('popup').className=''"><button class="main">Cómo jugar</button></a>
+    </div>
+    <div id="popup" class="hidden" onclick="document.getElementById('popup').className='hidden'">
+      <div>
+        <p>Os doy la bienvenida al juego de la evolución.</p>
+        <p>Tendréis que tomar el papel de la selección natural, un fenómeno que ocurre en la naturaleza, que consiste en que las especies se adaptan al ambiente en el que viven gracias a ciertas características que les dan ventaja.</p>
+        <p>Hay dos biomas con condiciones opuestas, en cada generación ocurrirá un evento. El evento puede ser local, son eventos que solamente ocurren en biomas concretos, o puede ser global, eventos que ocurren en el mundo entero y afectarán a todos los biomas.</p>
+        <p>Tendréis que elegir los individuos que mejor penséis que se adaptarán a los cambios. ¡Pero cuidado! Es peligroso tener individuos demasiado adaptados ya que la falta de variedad puede jugar en vuestra contra en el futuro.</p>
+        <p>Fijaos en que las poblaciones irán evolucionando y que serán muy distintas de un bioma a otro con el paso de las generaciones.</p>
+        <p>Con esta información ya podéis jugar, controlando una persona los dos biomas o haciendo una competición para ver quién consigue que su población dure más tiempo. ¡Mucha suerte!</p>
+      </div>
+    </div>
+  </body>
 </html>

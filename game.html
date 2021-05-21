@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>Evolution, The Game</title>
+        <meta name="description" content="Evolution, The Game" />
+        <meta name="author" content="Nuria" />
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body onload="main();">
+        <div id="global-event-title" class="event-title hidden">
+            <h1>Example Event</h1>
+            <h2>Example Event description</h2>
+        </div>
+        <div id="left-biome" class="biome"></div>
+        <div id="right-biome" class="biome"></div>
+        <button id="user-button" onclick="game.userContinue()" class="hidden"></button>
+        <span id="turns">1</span>
+        <a href="index.html"><button id="exit"><img src="img/exit.svg" /></button></a>
+        <div id="popup-death" class="hidden">
+        <div>
+            <p>¡Has llegado hasta la <span id="end-score"></span>ª generación!</p>
+            <p id="biome-winner"></p>
+                <a href="game.html"><button class="main">Volver a jugar</button></a>
+                <a href="index.html"><button class="main">Salir al menú</button></a>
+        </div>
+        </div>
+    </body>
+</html>
