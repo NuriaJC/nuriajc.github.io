@@ -393,7 +393,7 @@ class Survival {
 //             return true;
         }
         else {
-            if ( this.globalEventsIndex > this.globalEvents.length ) {
+            if ( this.globalEventsIndex > 2 ) {
                 this.globalEventsIndex = 0;
                 this.globalEvents = shuffle(this.globalEvents);
             }
