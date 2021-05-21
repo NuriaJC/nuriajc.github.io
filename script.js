@@ -518,7 +518,7 @@ function main(){
     );
 
     var cold = new EnvEvent(
-        'Hace frío', 'Una buena capa de pelo y patas cortas y mucha masa corporal para mantener el calor vendrá bien',
+        'Hace frío', 'Una buena capa de pelo, patas cortas y mucha masa corporal para mantener el calor vendrá bien',
         0.3,
         [{
             [HAIR]: [2,0.5],
@@ -527,25 +527,30 @@ function main(){
     );
 
     var predator = new EnvEvent(
-        'Depredador', '¡Cuidado! Necesitarás unas patas muy largas y camuflaje para correr y esconderte o una gran constitución y mecanismos de defensa para atacar',
-        0.5,
+        'Depredador', '¡Cuidado! Necesitarás unas patas muy largas y camuflaje para correr y esconderte o una gran constitución y mecanismos de defensa para atacar, además tener una gran vista siempre ayuda',
+        0.45,
         [{
-            [LEGS]: [2,0.4],
-            [CAMO]: [2,0.6]},
+            [LEGS]: [2,0.35],
+            [CAMO]: [2,0.50],
+            [EYES]: [2,0.15]
+        },
         {
             [CONS]: [2,0.2],
-            [FANG]: [2,0.4],
-            [CLAW]: [2,0.4]
+            [FANG]: [2,0.35],
+            [CLAW]: [2,0.35],
+            [EYES]: [2,0.10]
         }]
     );
 
     var drought = new EnvEvent(
-        'Sequía', 'Para retener agua lo mejor será unas patas cortas, mucha masa corporal y unas garras para escarbar en busca de agua',
+        'Sequía', 'Para retener agua lo mejor será unas patas cortas, mucha masa corporal y buena vista y unas garras para escarbar en busca de agua',
         0.5,
         [{
             [LEGS]: [0,0.2],
-            [CONS]: [2,0.4],
-            [CLAW]: [2,0.4]}]
+            [CONS]: [2,0.30],
+            [CLAW]: [2,0.35],
+            [EYES]: [2,0.15]
+        }]
     );
 
     var burriedFood = new EnvEvent(
@@ -566,46 +571,55 @@ function main(){
     );
 
     var avalanche = new EnvEvent(
-        'Avalancha de nieve', 'Pelo largo para el frío y patas largas y poca masa corporal para poder correr vendrá bien',
+        'Avalancha de nieve', 'Pelo largo para el frío, buena vista para ver de donde viene la nieve y patas largas y poca masa corporal para poder correr vendrá bien',
         0.2,
         [{
-            [HAIR]: [2,0.3],
+            [HAIR]: [2,0.2],
             [LEGS]: [2,0.4],
-            [CONS]: [0,0.3]}]
+            [CONS]: [0,0.25],
+            [EYES]: [2,0.15]
+        }]
     );
     
     var flooding = new EnvEvent(
         'Inundación', 'Poco pelo que se moje y patas largas y mucha masa corporal para flotar y mantenerse fuera del agua será lo mejor',
         0.4,
         [{
-            [HAIR]: [0,0.2],
-            [LEGS]: [2,0.5],
-            [CONS]: [2,0.3]}]
+            [HAIR]: [0,0.15],
+            [LEGS]: [2,0.3],
+            [CONS]: [2,0.3],
+        }]
     );
     
     var fire = new EnvEvent(
-        'Incendio', 'Lo mejor será tener poco pelo para que no se queme y patas largas y poca masa corporal para poder huir del fuego',
+        'Incendio', 'Lo mejor será tener poco pelo para que no se queme y patas largas, poca masa corporal y buena vista para poder huir del fuego',
         0.3,
         [{
-            [HAIR]: [0,0.2],
-            [LEGS]: [2,0.6],
-            [CONS]: [0,0.2]}]
+            [HAIR]: [0,0.15],
+            [LEGS]: [2,0.5],
+            [CONS]: [0,0.2],
+            [EYES]: [2,0.15]
+        }]
     );
     
     var landslides = new EnvEvent(
-        'Deslizamiento', 'Para huir de las rocas lo mejor serán la patas largas y una gran masa corporal para soportar las caídas',
+        'Deslizamiento', 'Para huir de las rocas lo mejor serán la patas largas, buena vista y una gran masa corporal para soportar las caídas',
         0.2,
         [{
-            [LEGS]: [2,0.65],
-            [CONS]: [2,0.35]}]
+            [LEGS]: [2,0.50],
+            [CONS]: [2,0.35],
+            [EYES]: [2,0.15]
+        }]
     );
     
     var rain = new EnvEvent(
-        'Lluvias torrenciales', 'Para no carse vendrán bien patar cortas y poca masa corporal',
+        'Lluvias torrenciales', 'Para no carse vendrá bien buena vista, patas cortas y poca masa corporal',
         0.2,
         [{
             [LEGS]: [0,0.5],
-            [CONS]: [0,0.5]}]
+            [CONS]: [0,0.35],
+            [EYES]: [2,0.15]
+        }]
     );
     
     var low_food = new EnvEvent(
@@ -625,7 +639,7 @@ function main(){
     );
     
     var meteorite = new EnvEvent(
-        'Meteorito', '¡Una catástrofe mundial! Hay que tener las patas largas para poder esquivar las piedras ardiendo y poco pelo y poca masa corporal vendrán bien para el calor',
+        'Meteorito', '¡Una catástrofe mundial! Hay que tener las patas largas para poder esquivar las piedras ardiendo y poco pelo y masa corporal vendrán bien para el calor',
         0.5,
         [{
             [HAIR]: [0,0.2],
