@@ -1,6 +1,8 @@
 *{
     user-select:none !important;
+    user-drag:none !important;
 }
+
 
 body{
     height: 100vh;
