@@ -625,7 +625,7 @@ function main(){
     );
     
     var meteorite = new EnvEvent(
-        'Meteorito', '¡Una catástrofe mundial! Hay que tener las patas largas para poder esquivar las piedras ardiendo y poco pelo y masa corporal vendrán bien para el calor',
+        'Meteorito', '¡Una catástrofe mundial! Hay que tener las patas largas para poder esquivar las piedras ardiendo y poco pelo y poca masa corporal vendrán bien para el calor',
         0.5,
         [{
             [HAIR]: [0,0.2],
